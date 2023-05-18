@@ -1,0 +1,135 @@
+//本地
+//单目+IMU
+./Examples/Monocular-Inertial/mono_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Monocular-Inertial/EuRoC.yaml ./dataset/V1_02_medium ./Examples/Monocular-Inertial/EuRoC_TimeStamps/V102.txt
+
+./Examples/Monocular-Inertial/mono_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Monocular-Inertial/EuRoC.yaml ./dataset/MH_01_easy ./Examples/Monocular-Inertial/EuRoC_TimeStamps/MH01.txt
+
+
+//双目
+echo "Launching MH01 with Stereo sensor"
+./Examples/Stereo/stereo_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo/EuRoC.yaml ./dataset/MH_01_easy ./Examples/Stereo/EuRoC_TimeStamps/MH01.txt dataset-MH01_stereo
+
+python evaluation/evaluate_ate_scale.py evaluation/Ground_truth/EuRoC_left_cam/MH01_GT.txt f_dataset-MH01_stereo.txt --plot MH01_stereo.pdf --verbose
+
+//双目+IMU
+//V101数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/V1_01_easy ./Examples/Stereo-Inertial/EuRoC_TimeStamps/V101.txt dataset-V101_stereoi
+
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ../dataset/V1_01_easy ./Examples/Stereo-Inertial/EuRoC_TimeStamps/V101.txt dataset-V101_stereoi
+
+python evaluation/evaluate_ate_scale.py evaluation/Ground_truth/EuRoC_left_cam/V101_GT.txt f_dataset-V101_stereoi.txt --plot V101_stereoi.pdf --verbose
+
+//V102数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/V1_02_medium ./Examples/Stereo-Inertial/EuRoC_TimeStamps/V102.txt dataset-V102_stereoi
+
+python evaluation/evaluate_ate_scale.py evaluation/Ground_truth/EuRoC_left_cam/V102_GT.txt f_dataset-V102_stereoi.txt --plot V102_stereoi.pdf --verbose
+
+//V201数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/V2_01_easy ./Examples/Stereo-Inertial/EuRoC_TimeStamps/V201.txt dataset-V201_stereoi
+
+//V202数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/V2_02_medium ./Examples/Stereo-Inertial/EuRoC_TimeStamps/V202.txt dataset-V202_stereoi
+
+//V202数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/V2_03_difficult ./Examples/Stereo-Inertial/EuRoC_TimeStamps/V203.txt dataset-V203_stereoi
+
+//MH01数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/MH_01_easy ./Examples/Stereo-Inertial/EuRoC_TimeStamps/MH01.txt dataset-MH01_stereoi
+
+python evaluation/evaluate_ate_scale.py evaluation/Ground_truth/EuRoC_left_cam/MH01_GT.txt f_dataset-MH01_stereoi.txt --plot MH01_stereoi.pdf --verbose
+
+
+
+//MH02数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/MH_02_easy ./Examples/Stereo-Inertial/EuRoC_TimeStamps/MH02.txt dataset-MH02_stereoi
+
+python evaluation/evaluate_ate_scale.py evaluation/Ground_truth/EuRoC_left_cam/MH02_GT.txt f_dataset-MH02_stereoi.txt --plot MH02_stereoi.pdf --verbose
+
+//MH03数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/MH_03_medium ./Examples/Stereo-Inertial/EuRoC_TimeStamps/MH03.txt dataset-MH03_stereoi
+
+//MH04数据
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml ./dataset/MH_04_difficult ./Examples/Stereo-Inertial/EuRoC_TimeStamps/MH04.txt dataset-MH04_stereoi
+
+
+//D435i 在线运行
+//RGBD-Inertial
+./Examples/RGB-D-Inertial/rgbd_inertial_realsense_D435i ./Vocabulary/ORBvoc.txt ./Examples/RGB-D-Inertial/RealSense_D435i.yaml 
+
+//Stereo-Intertial
+./Examples/Stereo-Inertial/stereo_inertial_realsense_D435i ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/RealSense_D435i.yaml 
+
+
+//ROS V101 bag运行
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC.yaml false
+rosbag play dataset/V1_01_easy.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+python evaluation/evaluate_ate_scale.py dataset/V101/V101_GT.txt dataset/V101/ORB_ORI/V101_1.txt  --plot V101_ORB_ORI_1.pdf --verbose
+python evaluation/evaluate_ate_scale.py dataset/V101/V101_GT.txt vio.txt  --plot V101_msckf.pdf --verbose
+
+
+//ROS MH01 bag运行
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC.yaml false
+rosbag play dataset/MH_01_easy.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+python evaluation/evaluate_ate_scale.py dataset/MH01/MH01_GT.txt dataset/MH01/ORB/MH01.txt  --plot MH01_ORB.pdf --verbose
+
+//ROS MH03 bag运行
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC.yaml false
+rosbag play dataset/MH_03_medium.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+python evaluation/evaluate_ate_scale.py dataset/MH03/MH03_GT.txt dataset/MH03/ORB/MH03.txt  --plot MH03_ORB.pdf --verbose
+
+python evaluation/evaluate_ate_scale.py dataset/MH03/MH03_GT.txt dataset/MH03/msckf/MH03_1.txt  --plot MH03_msckf_1.pdf --verbose
+//ROS test6 bag运行
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC_test6.yaml false
+rosbag play dataset/test6_4imu.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+//ROS D435i bag运行
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/RealSense_D435i.yaml false
+rosbag play dataset/d435i_stereoi_1.bag /camera/infra1/image_rect_raw:=/camera/left/image_raw /camera/infra2/image_rect_raw:=/camera/right/image_raw /camera/imu:=/imu
+
+rosbag play dataset/d435i/d435i_stereoi_test_35cm.bag /camera/infra1/image_rect_raw:=/camera/left/image_raw /camera/infra2/image_rect_raw:=/camera/right/image_raw /camera/imu:=/imu
+
+rosbag play dataset/d435i/d435i_stereoi_test_35cm_Lookdown.bag /camera/infra1/image_rect_raw:=/camera/left/image_raw /camera/infra2/image_rect_raw:=/camera/right/image_raw /camera/imu:=/imu
+
+rosbag play dataset/d435i/d435i_stereoi_test_35cm_office.bag /camera/infra1/image_rect_raw:=/camera/left/image_raw /camera/infra2/image_rect_raw:=/camera/right/image_raw /camera/imu:=/imu
+
+rosbag play dataset/d435i/d435i_stereoi_test_35cm_Lookdown_office.bag /camera/infra1/image_rect_raw:=/camera/left/image_raw /camera/infra2/image_rect_raw:=/camera/right/image_raw /camera/imu:=/imu
+
+//帧对比
+python evaluation/evaluate_ate_scale.py dataset/test6_4imu_result/CameraTrajectory.txt CameraTrajectory.txt  --plot test6_4imu.pdf --verbose
+
+python evaluation/evaluate_ate_scale.py dataset/test6_4imu_msckf/test6_1.txt dataset/test6_4imu_ORB/test6_1.txt  --plot test6_MSCKF_ORB_1.pdf --verbose
+
+//IMU 噪声修改
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC_test6_noise.yaml false
+rosbag play dataset/test6_4imu.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+python evaluation/evaluate_ate_scale.py dataset/test6_4imu_result_2/CameraTrajectory.txt CameraTrajectory.txt  --plot test6_4imu.pdf --verbose
+
+//ROS test1 bag运行
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC_test1.yaml false
+rosbag play dataset/test1.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+//帧对比
+python evaluation/evaluate_ate_scale.py dataset/test1_result/CameraTrajectory.txt CameraTrajectory.txt  --plot test1.pdf --verbose
+
+python evaluation/evaluate_ate_scale.py dataset/test1_ORB/test1.txt dataset/test1_ORB/test1_2.txt  --plot test1_intra_orb.pdf --verbose
+
+python evaluation/evaluate_ate_scale.py dataset/test1_ORB/test1_1.txt dataset/test1_msckf/test1_1.txt  --plot test1_msckf_orb_1.pdf --verbose
+//查看帧率
+rosbag play *.bag
+rostopic hz /cam0/image_raw
+rostopic hz /imu0
+
+//编译
+./build.sh
+./build_ros.sh
+
+嵌入式编译命令： ./build.sh 
+make -j  修改为 make -o -j4
+
+
+
+

@@ -243,7 +243,7 @@ void LocalMapping::Run()
             }
 
 #ifdef REGISTER_TIMES
-            vdLBASync_ms.push_back(timeKFCulling_ms);
+            vdLBASync_ms.push_back(timeLBA_ms);
             vdKFCullingSync_ms.push_back(timeKFCulling_ms);
 #endif
 
@@ -459,7 +459,7 @@ void LocalMapping::CreateNewMapPoints()
                 continue;
         }
 
-        // Search matches that fullfil epipolar constraint
+        // Search matches that fullfill epipolar constraint
         vector<pair<size_t,size_t> > vMatchedIndices;
         bool bCoarse = mbInertial && mpTracker->mState==Tracking::RECENTLY_LOST && mpCurrentKeyFrame->GetMap()->GetIniertialBA2();
 

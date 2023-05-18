@@ -139,14 +139,15 @@ int main(int argc, char **argv) {
             ++index;
             if (index == 1) {
                 sensor.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE, 1);
-                sensor.set_option(RS2_OPTION_AUTO_EXPOSURE_LIMIT,5000);
+                //sensor.set_option(RS2_OPTION_AUTO_EXPOSURE_LIMIT,5000);
                 sensor.set_option(RS2_OPTION_EMITTER_ENABLED, 0); // switch off emitter
             }
             // std::cout << "  " << index << " : " << sensor.get_info(RS2_CAMERA_INFO_NAME) << std::endl;
-            get_sensor_option(sensor);
+            //get_sensor_option(sensor);
             if (index == 2){
                 // RGB camera (not used here...)
-                sensor.set_option(RS2_OPTION_EXPOSURE,100.f);
+                //sensor.set_option(RS2_OPTION_EXPOSURE,100.f);
+                sensor.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE, 1);
             }
 
             if (index == 3){
@@ -269,6 +270,7 @@ int main(int argc, char **argv) {
     rs2::stream_profile imu_stream = pipe_profile.get_stream(RS2_STREAM_GYRO);
     float* Rbc = cam_left.get_extrinsics_to(imu_stream).rotation;
     float* tbc = cam_left.get_extrinsics_to(imu_stream).translation;
+    std::cout << std::setprecision(8) << std::endl << std::endl;
     std::cout << "Tbc (left) = " << std::endl;
     for(int i = 0; i<3; i++){
         for(int j = 0; j<3; j++)

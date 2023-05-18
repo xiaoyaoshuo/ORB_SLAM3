@@ -146,8 +146,8 @@ int main(int argc, char **argv) {
                 // sensor.set_option(RS2_OPTION_AUTO_EXPOSURE_LIMIT,50000);
                 sensor.set_option(RS2_OPTION_EMITTER_ENABLED, 1); // emitter on for depth information
             }
-            // std::cout << "  " << index << " : " << sensor.get_info(RS2_CAMERA_INFO_NAME) << std::endl;
-            get_sensor_option(sensor);
+            std::cout << "  " << index << " : " << sensor.get_info(RS2_CAMERA_INFO_NAME) << std::endl;
+            //get_sensor_option(sensor);
             if (index == 2){
                 // RGB camera
                 sensor.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE,1);

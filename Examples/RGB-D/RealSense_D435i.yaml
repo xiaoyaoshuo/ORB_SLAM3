@@ -8,10 +8,10 @@ File.version: "1.0"
 Camera.type: "PinHole"
 
 # Right Camera calibration and distortion parameters (OpenCV)
-Camera1.fx: 617.201
-Camera1.fy: 617.362
-Camera1.cx: 324.637
-Camera1.cy: 242.462
+Camera1.fx: 604.837
+Camera1.fy: 604.339
+Camera1.cx: 320.987
+Camera1.cy: 243.814
 
 
 # distortion parameters
@@ -31,8 +31,8 @@ Camera.fps: 30
 Camera.RGB: 1
 
 # Close/Far threshold. Baseline times.
-Stereo.ThDepth: 40.0
-Stereo.b: 0.0745
+Stereo.ThDepth: 6.0
+Stereo.b: 0.050048
 
 # Depth map values factor
 RGBD.DepthMapFactor: 1000.0
