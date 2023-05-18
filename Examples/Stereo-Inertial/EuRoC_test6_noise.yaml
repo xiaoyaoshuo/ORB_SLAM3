@@ -1,0 +1,118 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# System config
+#--------------------------------------------------------------------------------------------
+
+# When the variables are commented, the system doesn't load a previous session or not store the current one
+
+# If the LoadFile doesn't exist, the system give a message and create a new Atlas from scratch
+#System.LoadAtlasFromFile: "Session_MH01_MH02_MH03_Stereo60_Pseudo"
+
+# The store file is created from the current session, if a file with the same name exists it is deleted
+#System.SaveAtlasToFile: "Session_MH01_MH02_MH03_Stereo60_Pseudo"
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration and distortion parameters (OpenCV) 
+Camera1.fx: 280.59513653259535
+Camera1.fy: 279.22178560406337
+Camera1.cx: 323.1385397086218
+Camera1.cy: 234.66238683322598
+
+Camera1.k1: -0.008228094308485197
+Camera1.k2: -0.003174233859681989
+Camera1.p1: 0.016317903114715676
+Camera1.p2: -0.007297265502652538
+
+Camera2.fx: 280.29364491046465
+Camera2.fy: 278.88157099768097
+Camera2.cx: 316.6442983894223
+Camera2.cy: 241.52600683369198
+
+Camera2.k1: -0.011443235552171884
+Camera2.k2: 0.00845488044366793
+Camera2.p1: 0.002679452898291567
+Camera2.p2: -0.0024715569384940123
+
+Camera.width: 640
+Camera.height: 480
+
+# Camera frames per second 
+Camera.fps: 20
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Close/Far threshold. Baseline times.
+Stereo.ThDepth: 60.0
+Stereo.T_c1_c2: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: f
+  data: [0.999764708596757,   0.00547659370323972,    0.0209889105445805,    0.0734967673689538,
+        -0.00505573179506524,     0.999786145394973,   -0.0200525073812534, -0.000901646138419973,
+        -0.0210942414050644,    0.0199416748962691,     0.999578592498796,  -0.00151486738070528,
+                    0,                     0,                     0,                     1]
+
+# Transformation from camera 0 to body-frame (imu)
+IMU.T_b_c1: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: f
+  data: [0.99930799, -0.0328784,   0.01739379,   -0.02029747,
+         0.0339107,   0.99744844, -0.06282262, -0.00068414,
+        -0.0152839,   0.06336898,  0.99787313,  0.00576077,
+         0.0,         0.0,         0.0,         1.0]
+
+# IMU noise
+# IMU.NoiseGyro: 0.0001752 #1.7e-04 # 1.6968e-04
+# IMU.NoiseAcc: 0.2 #2.0e-03 # 2.0000e-3
+# IMU.GyroWalk: 6e-5 #1.9393e-05
+# IMU.AccWalk: 0.002 #3.e-03 # 3.0000e-3
+# IMU.Frequency: 200.0
+IMU.NoiseGyro: 1.7e-04 # 1.6968e-04
+IMU.NoiseAcc: 2.0e-03 # 2.0000e-3
+IMU.GyroWalk: 1.9393e-05
+IMU.AccWalk: 3.e-03 # 3.0000e-3
+IMU.Frequency: 200.0
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1200
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0
+Viewer.imageViewScale: 1.0
+
